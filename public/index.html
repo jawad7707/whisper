@@ -1,0 +1,229 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="WhisperInk offers a collection of erotic stories. Purchase and read your favorite stories easily with secure mobile payment." />
+    <meta property="og:title" content="WhisperInk - Erotic Story Access">
+    <meta property="og:description" content="WhisperInk offers a collection of erotic stories. Purchase and read your favorite stories with easy mobile payment.">
+    <meta property="og:image" content="logo.png">
+    <title>WhisperInk</title>
+    <link rel="icon" type="image/png" href="logo.png">
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <nav class="genre-navbar">
+        <img src="logo.png" alt="Logo">
+    </nav>
+    
+    <h1 style="color: white; text-align: center; margin-top: 150px;">Purchase Erotic Stories for ₹8 - Pay Securely via Mobile Number</h1>
+    
+    <div class="story-container">
+        <div class="story-item" onclick="checkAndInitiatePayment('secret')">
+            <img src="secret.png" alt="Secret" class="story-image">
+            <div class="story-name">Secret Desires</div>
+        </div>
+        <div class="story-item" onclick="checkAndInitiatePayment('whisper')">
+            <img src="whisper.png" alt="Whisper" class="story-image">
+            <div class="story-name">Whispers At The Night</div>
+        </div>
+        <div class="story-item" onclick="checkAndInitiatePayment('tangled')">
+            <img src="tangled.png" alt="Tangled" class="story-image">
+            <div class="story-name">Tangled Hearts</div>
+        </div>
+        <div class="story-item" onclick="checkAndInitiatePayment('warmsheets')">
+            <img src="under.png" alt="Under" class="story-image">
+            <div class="story-name">Under The Warm Sheets</div>
+        </div>
+        <div class="story-item" onclick="checkAndInitiatePayment('warm')">
+            <img src="warm.png" alt="Warm" class="story-image">
+            <div class="story-name">Warm Hug</div>
+        </div>
+        <div class="story-item" onclick="checkAndInitiatePayment('heat')">
+            <img src="heat.png" alt="Heat" class="story-image">
+            <div class="story-name">The Heat Between Us</div>
+        </div>
+        <div class="story-item" onclick="checkAndInitiatePayment('midnight')">
+            <img src="midnight.png" alt="Midnight" class="story-image">
+            <div class="story-name">Midnight Seduction</div>
+        </div>
+        <div class="story-item" onclick="checkAndInitiatePayment('fire')">
+            <img src="fire.png" alt="Fire" class="story-image">
+            <div class="story-name">Love on Fire</div>
+        </div>
+        <div class="story-item" onclick="checkAndInitiatePayment('drawn')">
+            <img src="drawn.png" alt="Love" class="story-image">
+            <div class="story-name">Drawn To You</div>
+        </div>
+        <div class="story-item" onclick="checkAndInitiatePayment('resist')">
+            <img src="resist.png" alt="Love" class="story-image">
+            <div class="story-name">Hard To Resist</div>
+        </div>
+        <div class="story-item" onclick="checkAndInitiatePayment('dangerous')">
+            <img src="Dangerous.png" alt="Love" class="story-image">
+            <div class="story-name">Dangerous Love</div>
+        </div>
+        <div class="story-item" onclick="checkAndInitiatePayment('feelingheat')">
+            <img src="feelingheat.png" alt="Love" class="story-image">
+            <div class="story-name">Feeling The Heat</div>
+        </div>
+        <div class="story-item" onclick="checkAndInitiatePayment('hotnight')">
+            <img src="Hotnight.png" alt="Love" class="story-image">
+            <div class="story-name">Hot Nights</div>
+        </div>
+        <div class="story-item" onclick="checkAndInitiatePayment('underspell')">
+            <img src="underspell.png" alt="Love" class="story-image">
+            <div class="story-name">Under Your Spell</div>
+        </div>
+        <div class="story-item" onclick="checkAndInitiatePayment('Nightime')">
+            <img src="nighttime.png" alt="Love" class="story-image">
+            <div class="story-name">Nighttime Secrets</div>
+        </div>
+        <div class="story-item" onclick="checkAndInitiatePayment('hiddenjoys')">
+            <img src="hiddenjoys.png" alt="Love" class="story-image">
+            <div class="story-name">Hidden Joys</div>
+        </div>
+    </div>
+
+    <footer>
+        <div class="footer-content">
+            <p>&copy; 2024 WhisperInk. All rights reserved.</p>
+            <ul>
+                <li><a href="terms.html">Terms and Conditions</a></li>
+            </ul>
+        </div>
+    </footer>
+
+    <script src="https://checkout.razorpay.com/v1/checkout.js"></script>
+    <script>
+        async function checkAndInitiatePayment(story) {
+            let purchasedStories = JSON.parse(localStorage.getItem('purchasedStories')) || [];
+            let userPhone = localStorage.getItem('userPhone');
+    
+            if (purchasedStories.includes(story)) {
+                window.location.href = story + '.html';
+                return;
+            }
+    
+            if (!userPhone) {
+                displayPhoneInput(story);
+                return;
+            }
+    
+            await createOrder(story, userPhone);
+        }
+    
+        function displayPhoneInput(story) {
+            // Create a container if it doesn't already exist
+            if (document.getElementById('phone-input-container')) return;
+    
+            const container = document.createElement('div');
+            container.id = 'phone-input-container';
+            container.classList.add('phone-input-container');  // Add class for styling
+    
+            container.innerHTML = `
+                <h3 style="margin: 0 0 10px; text-align: center;">Enter Your Phone Number</h3>
+                <input
+                    id="phone-input"
+                    type="text"
+                    placeholder="Enter 10-digit phone number"
+                    style="width: 100%; padding: 8px; margin-bottom: 10px; border: 1px solid #ccc; border-radius: 4px;"
+                />
+                <button
+                    id="phone-submit-button"
+                    style="width: 100%; padding: 10px; background: #007bff; color: #fff; border: none; border-radius: 4px; cursor: pointer;"
+                >
+                    Submit
+                </button>
+            `;
+    
+            document.body.appendChild(container);
+    
+            document.getElementById('phone-submit-button').addEventListener('click', () => {
+                const phoneInput = document.getElementById('phone-input').value.trim();
+    
+                if (/^\d{10}$/.test(phoneInput)) {
+                    localStorage.setItem('userPhone', phoneInput);
+                    document.body.removeChild(container); // Remove the container
+                    createOrder(story, phoneInput); // Proceed to create an order
+                } else {
+                    alert("Please enter a valid 10-digit phone number.");
+                }
+            });
+        }
+    
+        async function createOrder(story, userPhone) {
+            try {
+                console.log("Creating order...");
+                const response = await fetch('/api/create-order', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({ amount: 800 })
+                });
+    
+                const { orderId } = await response.json();
+                console.log("Order ID received:", orderId);
+    
+                if (orderId) {
+                    initiatePayment(story, userPhone, orderId);
+                } else {
+                    alert("Failed to create an order. Please try again.");
+                }
+            } catch (error) {
+                console.error("Error creating order:", error);
+                alert("There was an error creating your order. Please try again.");
+            }
+        }
+    
+        function initiatePayment(story, userPhone, orderId) {
+            localStorage.setItem('selectedStory', story);
+    
+            const options = {
+                key: "rzp_live_i3ZxPZvkJubDIv",
+                amount: 800,
+                currency: "INR",
+                name: "WhisperInk",
+                description: "Payment for Story Access",
+                image: "logo.png",
+                order_id: orderId,
+                handler: async function (response) {
+                    alert("Payment Successful. Payment ID: " + response.razorpay_payment_id);
+    
+                    let purchasedStories = JSON.parse(localStorage.getItem('purchasedStories')) || [];
+                    purchasedStories.push(story);
+                    localStorage.setItem('purchasedStories', JSON.stringify(purchasedStories));
+    
+                    await fetch('/api/orders', {
+                        method: 'POST',
+                        headers: { 'Content-Type': 'application/json' },
+                        body: JSON.stringify({
+                            paymentId: response.razorpay_payment_id,
+                            orderId: orderId,
+                            story: story,
+                            userId: userPhone
+                        })
+                    });
+    
+                    window.location.href = story + '.html';
+                },
+                prefill: { contact: userPhone },
+                modal: {
+                    ondismiss: function () {
+                        if (confirm("Are you sure you want to close the payment form?")) {
+                            console.log("Payment form closed by the user.");
+                        } else {
+                            console.log("User chose to continue with payment.");
+                        }
+                    }
+                },
+                payment_capture: 1,
+                method: { upi: true, card: true, netbanking: true, wallet: true }
+            };
+    
+            console.log("Opening Razorpay payment form...");
+            var rzp = new Razorpay(options);
+            rzp.open();
+        }
+    </script>
+</body>
+</html>
